@@ -27,19 +27,25 @@ var queue = {
      *
      *  
      */
-    
-    push: function(callback,time,group){
-        this.queue.push({'callback': callback,'time': time,'group': group});
-    },
-    queue: [],
-    /* Run the queue items */
-    run: function(){
-        var my_time = 0;
-        for(var i in this.queue){
-            window.setTimeout(this.queue[i].callback,this.queue[i].time);
-            my_time += this.queue[i].time;
+        push: function(callback,time,group){
+            if(typeof this.queue[group] == 'undefined'){
+                this.queue[group] = [];
+            }
+            this.queue[group].push({'callback': callback,'time': time});
+        },
+        queue: [],
+        run: function(group){
+            var my_time = 0;
+            for(var i in this.queue[group]){
+                console.log('lol');
+                window.setTimeout(this.queue[group][i].callback,this.queue[group][i].time + my_time);
+                my_time += this.queue[group][i].time;
+            }
+        },
+        clear: function(group){
+            this.queue[group] = [];
         }
-    }
+
 };
 
 /* Closure object 
