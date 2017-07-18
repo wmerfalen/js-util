@@ -37,7 +37,6 @@ var queue = {
         run: function(group){
             var my_time = 0;
             for(var i in this.queue[group]){
-                console.log('lol');
                 window.setTimeout(this.queue[group][i].callback,this.queue[group][i].time + my_time);
                 my_time += this.queue[group][i].time;
             }
