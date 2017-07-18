@@ -1,7 +1,6 @@
 /* Queue up some items to run at a specific point. 
  * This is just a wrapper to setTimeout
  */
-var queue = {
     /* @param callback function is a closure that will be called. 
      * @param time int the time in miliseconds IN ADDITION to the previous queue item
      * @param group string if set, will set the group name that this function applies under. See usage for details
@@ -27,8 +26,13 @@ var queue = {
      *
      *  
      */
+    function queue(){
+        //
+        this.queue = [];
+    };
+    queue.prototype = {
         push: function(callback,time,group){
-            if(typeof this.queue[group] == 'undefined'){
+            if(typeof this.queue[group] === 'undefined'){
                 this.queue[group] = [];
             }
             this.queue[group].push({'callback': callback,'time': time});
@@ -38,14 +42,31 @@ var queue = {
             var my_time = 0;
             for(var i in this.queue[group]){
                 window.setTimeout(this.queue[group][i].callback,this.queue[group][i].time + my_time);
+                this.debug('triggered: ' + this.queue[group][i].callback.toString());
                 my_time += this.queue[group][i].time;
             }
         },
         clear: function(group){
             this.queue[group] = [];
+        },
+        debug: function(){
+            return;
         }
+    };
+    queue.prototype.constructor = queue;
 
-};
+/* Example usage of prototypical inheritence: */
+/*
+    function AgentQueue(){
+        queue.call(this);
+    }
+    AgentQueue.prototype = Object.create(queue.prototype);
+    AgentQueue.prototype.debug = function(objects){
+        for(var i in objects){
+            console.log(['AgentQueue:', typeof objects[i], objects[i]].join(':'));
+        }
+    };
+*/
 
 /* Closure object 
  * usage:
