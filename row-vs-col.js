@@ -60,7 +60,7 @@ function local_col_major_traversal(){
 }
 
 load_data_set();
-var type = null, locality = null;
+var type = null, locality = 'non-local';
 process.argv.forEach(function(val,index){
 	switch(index){
 		case 2:
