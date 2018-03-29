@@ -127,4 +127,37 @@ console.log(ret);	/** Guess what this prints... */
  */
 
 
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-*/
+/* [ ITEM 5 ] :: -> Shorthand way of using true and false                    */
+/* [[ Explanation ]] :: -> This stuck out to me just because it _looked cool_*/
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-*/
+(function(value){
+	console.log(value);	/** what does this print? */
+})(!0);
+/** [[ Answer ]] :: -> true */
+/** Yeah. I know. So elite. 
+ * The same can be done with !1
+ */
 
+console.log(
+	(function(){ 
+		return void 'bar'
+	})()
+);	/** What does this print? */
+
+/** [[ Answer ]] :: -> undefined */
+/** So I guess you can pretty much eliminate
+ * a return value and always return undefined.
+ * The obfuscation program (or my just the original coder)
+ * REALLY likes using return. 
+ * But the benefit here is the same pattern that we've seen
+ * over and over throughout the spotify source code: concise and expressive.
+ *
+ * Take for example this code snippet: 
+ * if (this.countryCode = m(), !h(this.countryCode)) return void (this.comboBox && this.comboBox.clearList());
+ * 
+ * The coder combines multiple expressions int the if statement (something i rarely seen done)
+ * They return undefined and at the same time abuse the && operator to conditionall execute
+ * this.comboBox.clearList() all on one line. It's concise, expressive, and eye opening.
+ *
+ */
